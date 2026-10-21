@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+    name="ServicioPacientes"
+    targetNamespace="http://hospital.example.com/pacientes"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://hospital.example.com/pacientes"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <types>
+        <xsd:schema
+            targetNamespace="http://hospital.example.com/pacientes"
+            elementFormDefault="qualified">
+
+            <xsd:element name="consultarPaciente">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="pacienteId" type="xsd:int"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="consultarPacienteResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:int"/>
+                        <xsd:element name="nombre" type="xsd:string"/>
+                        <xsd:element name="identificacion" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="insertarPaciente">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="nombre" type="xsd:string"/>
+                        <xsd:element name="identificacion" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="insertarPacienteResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:int"/>
+                        <xsd:element name="nombre" type="xsd:string"/>
+                        <xsd:element name="identificacion" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </types>
+
+    <message name="ConsultarPacienteInput">
+        <part name="parameters" element="tns:consultarPaciente"/>
+    </message>
+
+    <message name="ConsultarPacienteOutput">
+        <part name="parameters" element="tns:consultarPacienteResponse"/>
+    </message>
+
+    <message name="InsertarPacienteInput">
+        <part name="parameters" element="tns:insertarPaciente"/>
+    </message>
+
+    <message name="InsertarPacienteOutput">
+        <part name="parameters" element="tns:insertarPacienteResponse"/>
+    </message>
+
+    <portType name="ServicioPacientesPortType">
+        <operation name="insertarPaciente">
+            <input message="tns:InsertarPacienteInput"/>
+            <output message="tns:InsertarPacienteOutput"/>
+        </operation>
+        <operation name="consultarPaciente">
+            <input message="tns:ConsultarPacienteInput"/>
+            <output message="tns:ConsultarPacienteOutput"/>
+        </operation>
+    </portType>
+
+    <binding name="ServicioPacientesBinding"
+             type="tns:ServicioPacientesPortType">
+        <soap:binding
+            style="document"
+            transport="http://schemas.xmlsoap.org/soap/http"/>
+
+        <operation name="consultarPaciente">
+            <soap:operation soapAction="consultarPaciente"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="insertarPaciente">
+            <soap:operation soapAction="insertarPaciente"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="ServicioPacientes">
+        <port name="ServicioPacientesPort"
+              binding="tns:ServicioPacientesBinding">
+            <soap:address location="http://localhost:3000/pacientes"/>
+        </port>
+    </service>
+</definitions>

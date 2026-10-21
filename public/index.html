@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registro de pacientes</title>
+  <link rel="stylesheet" href="/estilos.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="etiqueta">CONSULTORIO · PACIENTES</span>
+      <h1>Registro de pacientes</h1>
+      <p>Registra un paciente o consulta sus datos por ID.</p>
+    </header>
+    <div class="formularios">
+      <section aria-labelledby="titulo-registro">
+        <h2 id="titulo-registro">Nuevo paciente</h2>
+        <form id="registro">
+          <label for="nombre">Nombre completo</label>
+          <input id="nombre" name="nombre" placeholder="Ej. Ana Pérez" autocomplete="name" required>
+          <label for="identificacion">Identificación</label>
+          <input id="identificacion" name="identificacion" placeholder="Ej. 0123456789" inputmode="numeric" pattern="[0-9]+" title="Ingresa solo números" required>
+          <button type="submit">Guardar paciente</button>
+        </form>
+      </section>
+      <section aria-labelledby="titulo-consulta">
+        <h2 id="titulo-consulta">Consultar paciente</h2>
+        <form id="consulta">
+          <label for="pacienteId">ID del paciente</label>
+          <input id="pacienteId" name="pacienteId" type="number" min="1" max="2147483647" step="1" placeholder="Ej. 1" required>
+          <p class="ayuda">Usa el ID recibido al registrar. Puedes probar con el 1, 2 o 3.</p>
+          <button type="submit" class="secundario">Buscar paciente</button>
+        </form>
+      </section>
+    </div>
+    <section class="resultado" aria-labelledby="titulo-resultado">
+      <h2 id="titulo-resultado">Resultado</h2>
+      <p id="mensaje" role="status" aria-live="polite">Aquí aparecerán los datos del paciente.</p>
+      <dl id="datos" hidden>
+        <div><dt>ID</dt><dd id="dato-id"></dd></div>
+        <div><dt>Nombre</dt><dd id="dato-nombre"></dd></div>
+        <div><dt>Identificación</dt><dd id="dato-identificacion"></dd></div>
+      </dl>
+    </section>
+    <footer>Práctica SOAP · Los registros nuevos se borran al reiniciar el servidor.</footer>
+  </main>
+</body>
+</html>
